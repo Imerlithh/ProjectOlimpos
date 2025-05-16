@@ -12,7 +12,7 @@ type Config struct {
 func Load() Config {
 	dbUrl := os.Getenv("DB_URL")
 	if dbUrl == "" {
-		dbUrl = "postgres://postgres:password@localhost:5432/olimpos?sslmode=disable"
+		dbUrl = "postgres://olimpos:supersecret@oduncutest1.cc.itu.edu.tr:5432/olimposdb?sslmode=disable"
 		fmt.Println("Uyarı: Ortam değişkeni bulunamadı, varsayılan DB bağlantısı kullanılacak.")
 	}
 	return Config{DBUrl: dbUrl}

@@ -1,0 +1,29 @@
+{{define "title"}}Servers{{end}}
+{{define "pageTitle"}}Servers{{end}}
+
+{{define "content"}}
+<a href="/servers/add" class="btn btn-primary mb-3">Add Server</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Hostname</th>
+            <th>IP Address</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{range .Servers}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.Hostname}}</td>
+            <td>{{.IPAddress}}</td>
+            <td>{{.CreatedAt}}</td>
+        </tr>
+    {{else}}
+        <tr><td colspan="4" class="text-center text-muted">No servers found</td></tr>
+    {{end}}
+    </tbody>
+</table>
+{{end}}

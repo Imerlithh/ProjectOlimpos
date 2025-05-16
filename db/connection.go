@@ -1,7 +1,7 @@
 package db
 
 import (
-	"ProjectOlimpos/internal/config"
+	"ProjectOlimpos/config"
 	"database/sql"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )

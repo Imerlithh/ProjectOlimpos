@@ -1,0 +1,31 @@
+{{define "title"}}API Logs{{end}}
+{{define "pageTitle"}}API Logs{{end}}
+
+{{define "content"}}
+<table class="table table-striped table-hover table-sm">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Endpoint</th>
+            <th>Method</th>
+            <th>Response Code</th>
+            <th>Client IP</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{range .Logs}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.Endpoint}}</td>
+            <td>{{.Method}}</td>
+            <td>{{.ResponseCode}}</td>
+            <td>{{.ClientIP}}</td>
+            <td>{{.CreatedAt}}</td>
+        </tr>
+    {{else}}
+        <tr><td colspan="6" class="text-center text-muted">No API Logs Found</td></tr>
+    {{end}}
+    </tbody>
+</table>
+{{end}}

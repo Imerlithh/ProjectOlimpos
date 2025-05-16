@@ -1,0 +1,43 @@
+{{define "title"}}Worker Join Requests{{end}}
+{{define "pageTitle"}}Worker Join Requests{{end}}
+
+{{define "content"}}
+<table class="table table-striped table-hover table-sm">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Token</th>
+            <th>Worker Name</th>
+            <th>IP Address</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Approved At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{range .Requests}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.Token}}</td>
+            <td>{{.WorkerName}}</td>
+            <td>{{.IPAddress}}</td>
+            <td>{{.Status}}</td>
+            <td>{{.CreatedAt}}</td>
+            <td>{{if .ApprovedAt.Valid}}{{.ApprovedAt.String}}{{end}}</td>
+            <td>
+                {{if eq .Status "pending"}}
+                    <form method="POST" action="/worker-requests/approve/{{.ID}}">
+                        <button type="submit" class="btn btn-success btn-sm">Onayla</button>
+                    </form>
+                {{else}}
+                    <span class="text-muted">Approved</span>
+                {{end}}
+            </td>
+        </tr>
+    {{else}}
+        <tr><td colspan="8" class="text-center text-muted">No Requests Found</td></tr>
+    {{end}}
+    </tbody>
+</table>
+{{end}}

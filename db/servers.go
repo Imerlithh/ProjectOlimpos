@@ -1,0 +1,47 @@
+package db
+
+import (
+	"database/sql"
+	"fmt"
+)
+
+type Server struct {
+	ID        int
+	Hostname  string
+	IPAddress string
+	CreatedAt string
+}
+
+func ListServers(db *sql.DB) ([]Server, error) {
+	rows, err := db.Query(`SELECT id, hostname, ip_address, created_at FROM servers`)
+	if err != nil {
+		return nil, fmt.Errorf("servers listelenemedi: %w", err)
+	}
+	defer rows.Close()
+
+	var servers []Server
+	for rows.Next() {
+		var s Server
+		if err := rows.Scan(&s.ID, &s.Hostname, &s.IPAddress, &s.CreatedAt); err != nil {
+			return nil, fmt.Errorf("row scan hatası: %w", err)
+		}
+		servers = append(servers, s)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, fmt.Errorf("row iteration hatası: %w", err)
+	}
+
+	return servers, nil
+}
+
+func AddServer(db *sql.DB, hostname, ipAddress string) error {
+	_, err := db.Exec(`
+        INSERT INTO servers (hostname, ip_address)
+        VALUES ($1, $2)
+    `, hostname, ipAddress)
+	if err != nil {
+		return fmt.Errorf("server eklenemedi: %w", err)
+	}
+	return nil
+}

@@ -1,13 +1,19 @@
 package main
 
 import (
-	"ProjectOlimpos/internal/config"
-	"ProjectOlimpos/internal/db"
-	"fmt"
+	"ProjectOlimpos/config"
+	"ProjectOlimpos/db"
+	"ProjectOlimpos/web"
 	"log"
 )
 
 func main() {
+	InitDB()
+	r := web.SetupRouter()
+	r.Run(":8080")
+}
+
+func InitDB() {
 	cfg := config.Load()
 
 	dbConn, err := db.Connect(cfg)
@@ -16,12 +22,11 @@ func main() {
 	}
 	defer dbConn.Close()
 
-	fmt.Println("Veritabanına başarıyla bağlandı.")
+	log.Println("Veritabanına başarıyla bağlandı.")
 
-	err = db.InitSchema(dbConn)
-	if err != nil {
+	if err := db.InitSchema(dbConn); err != nil {
 		log.Fatalf("Şema oluşturulamadı: %v", err)
 	}
 
-	fmt.Println("Şema başarıyla oluşturuldu.")
+	log.Println("Şema başarıyla oluşturuldu.")
 }
