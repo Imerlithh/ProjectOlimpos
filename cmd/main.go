@@ -1,8 +1,8 @@
 package main
 
 import (
+	"ProjectOlimpos/internal/config"
 	"ProjectOlimpos/internal/db"
-	"ProjectOlimpus/internal/config"
 	"fmt"
 	"log"
 )
