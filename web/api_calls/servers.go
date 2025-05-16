@@ -24,6 +24,8 @@ func ListServersHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "layout", gin.H{
 		"Servers":    servers,
 		"ActivePage": "servers",
+		"pageTitle":  "Server List",
+		"title":      "Server List",
 	})
 }
 
