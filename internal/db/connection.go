@@ -1,7 +1,7 @@
 package db
 
 import (
-	"../config"
+	"ProjectOlimpos/internal/config"
 	"database/sql"
 )
 
