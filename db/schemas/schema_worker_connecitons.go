@@ -1,11 +1,11 @@
-package db
+package schemas
 
 import (
 	"database/sql"
 	"fmt"
 )
 
-func createWorkerConnectionsTable(db *sql.DB) error {
+func CreateWorkerConnectionsTable(db *sql.DB) error {
 	_, err := db.Exec(`
     CREATE TABLE IF NOT EXISTS worker_connections (
         id SERIAL PRIMARY KEY,

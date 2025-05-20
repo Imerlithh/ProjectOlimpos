@@ -1,16 +1,9 @@
-package db
+package servers
 
 import (
 	"database/sql"
 	"fmt"
 )
-
-type Server struct {
-	ID        int
-	Hostname  string
-	IPAddress string
-	CreatedAt string
-}
 
 func ListServers(db *sql.DB) ([]Server, error) {
 	rows, err := db.Query(`SELECT id, hostname, ip_address, created_at FROM servers`)
@@ -33,15 +26,4 @@ func ListServers(db *sql.DB) ([]Server, error) {
 	}
 
 	return servers, nil
-}
-
-func AddServer(db *sql.DB, hostname, ipAddress string) error {
-	_, err := db.Exec(`
-        INSERT INTO servers (hostname, ip_address)
-        VALUES ($1, $2)
-    `, hostname, ipAddress)
-	if err != nil {
-		return fmt.Errorf("server eklenemedi: %w", err)
-	}
-	return nil
 }

@@ -1,11 +1,11 @@
-package db
+package schemas
 
 import (
 	"database/sql"
 	"fmt"
 )
 
-func createServersTable(db *sql.DB) error {
+func CreateServersTable(db *sql.DB) error {
 	_, err := db.Exec(`
     CREATE TABLE IF NOT EXISTS servers (
         id SERIAL PRIMARY KEY,

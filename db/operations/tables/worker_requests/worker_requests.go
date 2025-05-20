@@ -1,4 +1,4 @@
-package db
+package worker_requests
 
 import (
 	"database/sql"

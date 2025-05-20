@@ -1,7 +1,12 @@
 package web
 
 import (
-	"ProjectOlimpos/web/api_calls"
+	apiLogsGet "ProjectOlimpos/web/api_calls/api_logs/get"
+	//apiLogsPost "ProjectOlimpos/web/api_calls/api_logs/post"
+	serversGet "ProjectOlimpos/web/api_calls/servers/get"
+	serversPost "ProjectOlimpos/web/api_calls/servers/post"
+	workerRequestsGet "ProjectOlimpos/web/api_calls/worker_requests/get"
+	//workerRequestsPost "ProjectOlimpos/web/api_calls/worker_requests/post"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,10 +20,10 @@ func SetupRouter() *gin.Engine {
 	r.LoadHTMLGlob("web/templates/*.tmpl")
 
 	// API Calls
-	r.GET("/servers", api_calls.ListServersHandler)
-	r.GET("/worker-requests", api_calls.ListWorkerRequestsHandler)
-	r.GET("/api-logs", api_calls.ListAPIRequestLogsHandler)
-	r.GET("/servers/add", api_calls.ShowAddServerForm)
-	r.POST("/servers/add", api_calls.AddServerHandler)
+	r.GET("/servers", serversGet.ListServersHandler)
+	r.GET("/worker-requests", workerRequestsGet.ListWorkerRequestsHandler)
+	r.GET("/api-logs", apiLogsGet.ListAPIRequestLogsHandler)
+	r.GET("/servers/add", serversGet.ShowAddServerForm)
+	r.POST("/servers/add", serversPost.AddServerHandler)
 	return r
 }

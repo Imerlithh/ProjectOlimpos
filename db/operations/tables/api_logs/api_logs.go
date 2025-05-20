@@ -1,4 +1,4 @@
-package db
+package api_logs
 
 import (
 	"database/sql"

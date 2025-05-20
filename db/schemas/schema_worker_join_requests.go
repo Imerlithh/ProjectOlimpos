@@ -1,11 +1,11 @@
-package db
+package schemas
 
 import (
 	"database/sql"
 	"fmt"
 )
 
-func createWorkerJoinRequestsTable(db *sql.DB) error {
+func CreateWorkerJoinRequestsTable(db *sql.DB) error {
 	_, err := db.Exec(`
     CREATE TABLE IF NOT EXISTS worker_join_requests (
         id SERIAL PRIMARY KEY,

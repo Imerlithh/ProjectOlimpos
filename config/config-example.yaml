@@ -1,0 +1,8 @@
+database:
+  type: postgres
+  name: dbname
+  user: dbuser
+  password: supersecret
+  host: fqdn.test.com
+  port: 5432
+  extra: sslmode=disable

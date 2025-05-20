@@ -1,11 +1,11 @@
-package db
+package schemas
 
 import (
 	"database/sql"
 	"fmt"
 )
 
-func createAPIRequestLogsTable(db *sql.DB) error {
+func CreateAPIRequestLogsTable(db *sql.DB) error {
 	_, err := db.Exec(`
     CREATE TABLE IF NOT EXISTS api_request_logs (
         id SERIAL PRIMARY KEY,

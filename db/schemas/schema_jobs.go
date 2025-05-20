@@ -1,11 +1,11 @@
-package db
+package schemas
 
 import (
 	"database/sql"
 	"fmt"
 )
 
-func createJobsTable(db *sql.DB) error {
+func CreateJobsTable(db *sql.DB) error {
 	_, err := db.Exec(`
     CREATE TABLE IF NOT EXISTS jobs (
         id SERIAL PRIMARY KEY,

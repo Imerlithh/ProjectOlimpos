@@ -3,6 +3,7 @@ package main
 import (
 	"ProjectOlimpos/config"
 	"ProjectOlimpos/db"
+	"ProjectOlimpos/db/operations"
 	"ProjectOlimpos/web"
 	"log"
 )
@@ -24,7 +25,7 @@ func InitDB() {
 
 	log.Println("Veritabanına başarıyla bağlandı.")
 
-	if err := db.InitSchema(dbConn); err != nil {
+	if err := operations.InitSchema(dbConn); err != nil {
 		log.Fatalf("Şema oluşturulamadı: %v", err)
 	}
 

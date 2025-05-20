@@ -1,8 +1,9 @@
-package api_calls
+package get
 
 import (
 	"ProjectOlimpos/config"
 	"ProjectOlimpos/db"
+	"ProjectOlimpos/db/operations/tables/worker_requests"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -16,7 +17,7 @@ func ListWorkerRequestsHandler(c *gin.Context) {
 	}
 	defer dbConn.Close()
 
-	requests, err := db.ListWorkerJoinRequests(dbConn)
+	requests, err := worker_requests.ListWorkerJoinRequests(dbConn)
 	if err != nil {
 		c.String(http.StatusInternalServerError, "Veri çekme hatası: %v", err)
 		return
@@ -46,7 +47,7 @@ func ApproveWorkerRequestHandler(c *gin.Context) {
 		return
 	}
 
-	if err := db.ApproveWorkerJoinRequest(dbConn, id); err != nil {
+	if err := worker_requests.ApproveWorkerJoinRequest(dbConn, id); err != nil {
 		c.String(http.StatusInternalServerError, "Onaylama hatası: %v", err)
 		return
 	}

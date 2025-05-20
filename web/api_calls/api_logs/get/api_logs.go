@@ -1,8 +1,9 @@
-package api_calls
+package get
 
 import (
 	"ProjectOlimpos/config"
 	"ProjectOlimpos/db"
+	"ProjectOlimpos/db/operations/tables/api_logs"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -15,7 +16,7 @@ func ListAPIRequestLogsHandler(c *gin.Context) {
 	}
 	defer dbConn.Close()
 
-	logs, err := db.ListAPIRequestLogs(dbConn)
+	logs, err := api_logs.ListAPIRequestLogs(dbConn)
 	if err != nil {
 		c.String(http.StatusInternalServerError, "Veri çekme hatası: %v", err)
 		return
@@ -25,6 +26,5 @@ func ListAPIRequestLogsHandler(c *gin.Context) {
 		"Logs":       logs,
 		"ActivePage": "api-logs",
 		"PageTitle":  "API Logs",
-		"Title":      "API Logs",
 	})
 }
