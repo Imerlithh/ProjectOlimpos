@@ -9,6 +9,7 @@
             <th>Response Code</th>
             <th>Client IP</th>
             <th>Created At</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +21,11 @@
             <td>{{.ResponseCode}}</td>
             <td>{{.ClientIP}}</td>
             <td>{{.CreatedAt}}</td>
+            <td>
+                <form method="POST" action="/api-logs/delete/{{.ID}}" onsubmit="return confirm('Silmek istediğinize emin misiniz?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                </form>
+            </td>
         </tr>
     {{else}}
         <tr><td colspan="6" class="text-center text-muted">No API Logs Found</td></tr>

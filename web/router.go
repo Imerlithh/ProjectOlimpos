@@ -2,7 +2,7 @@ package web
 
 import (
 	apiLogsGet "ProjectOlimpos/web/api_calls/api_logs/get"
-	//apiLogsPost "ProjectOlimpos/web/api_calls/api_logs/post"
+	apiLogsPost "ProjectOlimpos/web/api_calls/api_logs/post"
 	serversGet "ProjectOlimpos/web/api_calls/servers/get"
 	serversPost "ProjectOlimpos/web/api_calls/servers/post"
 	workerRequestsGet "ProjectOlimpos/web/api_calls/worker_requests/get"
@@ -20,10 +20,18 @@ func SetupRouter() *gin.Engine {
 	r.LoadHTMLGlob("web/templates/*.tmpl")
 
 	// API Calls
+
+	//Servers
 	r.GET("/servers", serversGet.ListServersHandler)
-	r.GET("/worker-requests", workerRequestsGet.ListWorkerRequestsHandler)
-	r.GET("/api-logs", apiLogsGet.ListAPIRequestLogsHandler)
 	r.GET("/servers/add", serversGet.ShowAddServerForm)
 	r.POST("/servers/add", serversPost.AddServerHandler)
+
+	//Worker Join Requests
+	r.GET("/worker-requests", workerRequestsGet.ListWorkerRequestsHandler)
+
+	//API logs
+	r.GET("/api-logs", apiLogsGet.ListAPIRequestLogsHandler)
+	r.POST("/api-logs/delete/:id", apiLogsPost.DeleteAPIRequestLogHandler)
+
 	return r
 }
