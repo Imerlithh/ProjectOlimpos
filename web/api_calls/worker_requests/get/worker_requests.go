@@ -24,10 +24,10 @@ func ListWorkerRequestsHandler(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "layout", gin.H{
-		"Requests":   requests,
-		"ActivePage": "worker-requests",
-		"PageTitle":  "Worker Requests",
-		"Title":      "Worker Requests",
+		"Requests":        requests,
+		"ActivePage":      "worker-requests",
+		"PageTitle":       "Worker Requests",
+		"ContentTemplate": "worker_requests_content",
 	})
 }
 

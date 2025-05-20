@@ -28,7 +28,15 @@
 
 <div class="container mt-4">
     <h1>{{.PageTitle}}</h1>
-    {{template "content" .}}
+    {{if eq .ContentTemplate "api_logs_content"}}
+        {{template "api_logs_content" .}}
+    {{else if eq .ContentTemplate "worker_requests_content"}}
+        {{template "worker_requests_content" .}}
+    {{else if eq .ContentTemplate "servers_add_content"}}
+        {{template "servers_add_content" .}}
+    {{else if eq .ContentTemplate "servers_content"}}
+        {{template "servers_content" .}}
+    {{end}}
 </div>
 
 </body>

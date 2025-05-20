@@ -7,8 +7,9 @@ import (
 
 func ShowAddServerForm(c *gin.Context) {
 	c.HTML(http.StatusOK, "layout", gin.H{
-		"ActivePage": "servers",
-		"PageTitle":  "Add New Server",
-		"Title":      "Add Server",
+		"ActivePage":      "servers",
+		"PageTitle":       "Add New Server",
+		"Title":           "Add Server",
+		"ContentTemplate": "servers_add_content",
 	})
 }

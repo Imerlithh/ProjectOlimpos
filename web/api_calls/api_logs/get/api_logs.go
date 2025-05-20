@@ -22,8 +22,9 @@ func ListAPIRequestLogsHandler(c *gin.Context) {
 		return
 	}
 	c.HTML(http.StatusOK, "layout", gin.H{
-		"Logs":       logs,
-		"ActivePage": "api-logs",
-		"PageTitle":  "API Logs",
+		"Logs":            logs,
+		"ActivePage":      "api-logs",
+		"PageTitle":       "API Logs",
+		"ContentTemplate": "api_logs_content",
 	})
 }
