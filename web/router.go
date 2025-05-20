@@ -6,7 +6,7 @@ import (
 	serversGet "ProjectOlimpos/web/api_calls/servers/get"
 	serversPost "ProjectOlimpos/web/api_calls/servers/post"
 	workerRequestsGet "ProjectOlimpos/web/api_calls/worker_requests/get"
-	//workerRequestsPost "ProjectOlimpos/web/api_calls/worker_requests/post"
+	//workerRequestsPost "ProjectOlimpos/web/api_calls/worker_join_requests/post"
 	"github.com/gin-gonic/gin"
 )
 

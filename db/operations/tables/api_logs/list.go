@@ -5,16 +5,6 @@ import (
 	"fmt"
 )
 
-type APIRequestLog struct {
-	ID           int
-	Endpoint     string
-	Method       string
-	RequestBody  sql.NullString
-	ResponseCode int
-	ClientIP     string
-	CreatedAt    string
-}
-
 func ListAPIRequestLogs(db *sql.DB) ([]APIRequestLog, error) {
 	rows, err := db.Query(`
         SELECT id, endpoint, method, request_body, response_code, client_ip, created_at
