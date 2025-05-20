@@ -21,7 +21,6 @@ func ListAPIRequestLogsHandler(c *gin.Context) {
 		c.String(http.StatusInternalServerError, "Veri çekme hatası: %v", err)
 		return
 	}
-
 	c.HTML(http.StatusOK, "layout", gin.H{
 		"Logs":       logs,
 		"ActivePage": "api-logs",
