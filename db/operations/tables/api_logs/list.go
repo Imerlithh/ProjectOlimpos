@@ -3,7 +3,6 @@ package api_logs
 import (
 	"database/sql"
 	"fmt"
-	"log"
 )
 
 func ListAPIRequestLogs(db *sql.DB) ([]APIRequestLog, error) {
@@ -29,7 +28,5 @@ func ListAPIRequestLogs(db *sql.DB) ([]APIRequestLog, error) {
 	if err = rows.Err(); err != nil {
 		return nil, fmt.Errorf("row iteration hatası: %w", err)
 	}
-	log.Println("API log listelendi.")
-	log.Println(logs)
 	return logs, nil
 }
