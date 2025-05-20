@@ -1,9 +1,0 @@
-database:
-  type: postgres
-  name: olimposdb
-  user: olimpos
-  password: supersecret
-  host: oduncutest1.cc.itu.edu.tr
-  port: 5432
-  extra: sslmode=disable
-
