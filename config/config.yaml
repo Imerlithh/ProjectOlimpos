@@ -6,3 +6,4 @@ database:
   host: oduncutest1.cc.itu.edu.tr
   port: 5432
   extra: sslmode=disable
+
