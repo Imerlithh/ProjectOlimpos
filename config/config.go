@@ -50,3 +50,16 @@ func BuildConnectionString(cfg Config) string {
 		cfg.Database.Extra,
 	)
 }
+
+func Save(cfg Config) error {
+	data, err := yaml.Marshal(&cfg)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(filepath.Join("config", "config.yaml"), data, 0600)
+}
+
+func IsReady() bool {
+	_, err := os.Stat(filepath.Join("config", "config.yaml"))
+	return err == nil
+}

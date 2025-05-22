@@ -15,7 +15,7 @@ import (
 func setupFirstRunForm() {
 	http.HandleFunc("/first-run", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			tmpl := template.Must(template.ParseFiles("templates/first_run.html"))
+			tmpl := template.Must(template.ParseFiles("web/templates/first_run.html"))
 			tmpl.Execute(w, nil)
 			return
 		}

@@ -6,6 +6,8 @@ import (
 	serversGet "ProjectOlimpos/web/api_calls/servers/get"
 	serversPost "ProjectOlimpos/web/api_calls/servers/post"
 	workerRequestsGet "ProjectOlimpos/web/api_calls/worker_requests/get"
+	"ProjectOlimpos/web/middleware"
+
 	//workerRequestsPost "ProjectOlimpos/web/api_calls/worker_join_requests/post"
 	"github.com/gin-gonic/gin"
 )
@@ -18,7 +20,11 @@ func SetupRouter() *gin.Engine {
 
 	// Templates
 	r.LoadHTMLGlob("web/templates/*.tmpl")
+	r.Use(middleware.RedirectToFirstRunIfNeeded())
 
+	r.GET("/first-run", ShowFirstRunForm)
+	r.POST("/first-run", HandleFirstRunSubmit)
+	r.GET("/", HomePage)
 	// API Calls
 
 	//Servers
