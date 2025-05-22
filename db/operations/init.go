@@ -9,7 +9,10 @@ import (
 
 // InitDB initializes GORM and ensures hypertables are created
 func InitDB() {
-	cfg := config.Load()
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatalf("Config dosyası yüklenemedi: %v", err)
+	}
 	gormDB := db.ConnectGORM(cfg)
 
 	// Hypertable dönüşümünü yap

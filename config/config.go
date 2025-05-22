@@ -2,8 +2,8 @@ package config
 
 import (
 	"fmt"
-	"log"
 	"os"
+	"path/filepath"
 
 	"gopkg.in/yaml.v3"
 )
@@ -20,25 +20,22 @@ type Config struct {
 	} `yaml:"database"`
 }
 
-var cfg Config
+var Current Config
 
-func Load() Config {
-	if cfg.Database.Type != "" {
-		return cfg // cache
-	}
+func Load() (Config, error) {
+	configPath := filepath.Join("config", "config.yaml")
 
-	file, err := os.Open("config/config.yaml")
+	data, err := os.ReadFile(configPath)
 	if err != nil {
-		log.Fatalf("config.yaml açılamadı: %v", err)
-	}
-	defer file.Close()
-
-	decoder := yaml.NewDecoder(file)
-	if err := decoder.Decode(&cfg); err != nil {
-		log.Fatalf("config.yaml parse edilemedi: %v", err)
+		return Config{}, fmt.Errorf("config.yaml okunamadı: %w", err)
 	}
 
-	return cfg
+	var cfg Config
+	if err := yaml.Unmarshal(data, &cfg); err != nil {
+		return Config{}, fmt.Errorf("config.yaml parse edilemedi: %w", err)
+	}
+
+	return cfg, nil
 }
 
 func BuildConnectionString(cfg Config) string {

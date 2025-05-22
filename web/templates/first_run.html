@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>İlk Kurulum</title></head>
+<body>
+<h2>Veritabanı Bilgilerini Girin</h2>
+<form method="POST">
+    DB Type: <input name="db_type" value="postgres"><br>
+    DB Host: <input name="db_host" required><br>
+    DB Port: <input name="db_port" value="5432" required><br>
+    DB User: <input name="db_user" required><br>
+    DB Pass: <input type="password" name="db_pass"><br>
+    DB Name: <input name="db_name" required><br>
+    Extra Params (optional): <input name="db_extra" placeholder="sslmode=disable"><br>
+    <button type="submit">Kaydet</button>
+</form>
+</body>
+</html>
