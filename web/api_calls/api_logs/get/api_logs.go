@@ -1,26 +1,20 @@
 package get
 
 import (
-	"ProjectOlimpos/config"
-	"ProjectOlimpos/db"
-	"ProjectOlimpos/db/operations/tables/api_logs"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"ProjectOlimpos/db"
+	gormlogs "ProjectOlimpos/db/operations/gorm/api_logs"
+	"github.com/gin-gonic/gin"
 )
 
 func ListAPIRequestLogsHandler(c *gin.Context) {
-	dbConn, err := db.Connect(config.Load())
+	logs, err := gormlogs.ListAPIRequestLogs(db.DB)
 	if err != nil {
-		c.String(http.StatusInternalServerError, "DB bağlantı hatası: %v", err)
+		c.String(http.StatusInternalServerError, "Veriler alınamadı: %v", err)
 		return
 	}
-	defer dbConn.Close()
 
-	logs, err := api_logs.ListAPIRequestLogs(dbConn)
-	if err != nil {
-		c.String(http.StatusInternalServerError, "Veri çekme hatası: %v", err)
-		return
-	}
 	c.HTML(http.StatusOK, "layout", gin.H{
 		"Logs":            logs,
 		"ActivePage":      "api-logs",

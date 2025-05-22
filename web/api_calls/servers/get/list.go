@@ -1,31 +1,24 @@
 package get
 
 import (
-	"ProjectOlimpos/config"
-	"ProjectOlimpos/db"
-	"ProjectOlimpos/db/operations/tables/servers"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"ProjectOlimpos/db"
+	gormservers "ProjectOlimpos/db/operations/gorm/servers"
+	"github.com/gin-gonic/gin"
 )
 
 func ListServersHandler(c *gin.Context) {
-	dbConn, err := db.Connect(config.Load())
+	servers, err := gormservers.ListServers(db.DB)
 	if err != nil {
-		c.String(http.StatusInternalServerError, "DB bağlantı hatası: %v", err)
-		return
-	}
-	defer dbConn.Close()
-
-	servers, err := servers.ListServers(dbConn)
-	if err != nil {
-		c.String(http.StatusInternalServerError, "Veri çekme hatası: %v", err)
+		c.String(http.StatusInternalServerError, "Sunucular alınamadı: %v", err)
 		return
 	}
 
 	c.HTML(http.StatusOK, "layout", gin.H{
-		"ActivePage":      "servers",
 		"Servers":         servers,
-		"PageTitle":       "Servers",
+		"ActivePage":      "servers",
+		"PageTitle":       "Sunucular",
 		"ContentTemplate": "servers_content",
 	})
 }

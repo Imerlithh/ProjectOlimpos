@@ -1,28 +1,35 @@
 package operations
 
 import (
-	"ProjectOlimpos/db/schemas"
+	"ProjectOlimpos/config"
+	"ProjectOlimpos/db"
 	"database/sql"
+	"log"
 )
 
-func InitSchema(db *sql.DB) error {
-	if err := schemas.EnableTimescale(db); err != nil {
-		return err
+// InitDB initializes GORM and ensures hypertables are created
+func InitDB() {
+	cfg := config.Load()
+	gormDB := db.ConnectGORM(cfg)
+
+	// Hypertable dönüşümünü yap
+	sqlDB, err := gormDB.DB()
+	if err != nil {
+		log.Printf("sql.DB erişilemedi: %v", err)
+		return
 	}
-	if err := schemas.CreateServersTable(db); err != nil {
-		return err
+
+	if err := ensureTimescaleHypertables(sqlDB); err != nil {
+		log.Printf("Hypertable kurulumu başarısız: %v", err)
+	} else {
+		log.Println("Hypertable kontrolü tamamlandı.")
 	}
-	if err := schemas.CreateJobsTable(db); err != nil {
-		return err
-	}
-	if err := schemas.CreateWorkerJoinRequestsTable(db); err != nil {
-		return err
-	}
-	if err := schemas.CreateWorkerConnectionsTable(db); err != nil {
-		return err
-	}
-	if err := schemas.CreateAPIRequestLogsTable(db); err != nil {
-		return err
-	}
-	return nil
+}
+
+func ensureTimescaleHypertables(db *sql.DB) error {
+	// timescale_metrics tablosunu hypertable'a çevir
+	_, err := db.Exec(`
+		SELECT create_hypertable('timescale_metrics', 'timestamp', if_not_exists => TRUE);
+	`)
+	return err
 }

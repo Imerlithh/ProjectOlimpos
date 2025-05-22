@@ -27,7 +27,7 @@ func SetupRouter() *gin.Engine {
 	r.POST("/servers/add", serversPost.AddServerHandler)
 
 	//Worker Join Requests
-	r.GET("/worker-requests", workerRequestsGet.ListWorkerRequestsHandler)
+	r.GET("/worker-requests", workerRequestsGet.ListWorkerJoinRequestsHandler)
 
 	//API logs
 	r.GET("/api-logs", apiLogsGet.ListAPIRequestLogsHandler)

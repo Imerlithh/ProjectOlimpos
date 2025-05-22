@@ -1,31 +1,30 @@
 package post
 
 import (
-	"ProjectOlimpos/config"
-	"ProjectOlimpos/db"
-	"ProjectOlimpos/db/operations/tables/servers"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"ProjectOlimpos/db"
+	"ProjectOlimpos/db/models"
+	gormservers "ProjectOlimpos/db/operations/gorm/servers"
+	"github.com/gin-gonic/gin"
 )
 
 func AddServerHandler(c *gin.Context) {
 	hostname := c.PostForm("hostname")
-	ipAddress := c.PostForm("ip_address")
+	ip := c.PostForm("ip_address")
 
-	if hostname == "" || ipAddress == "" {
-		c.String(http.StatusBadRequest, "Hostname ve IP Address gerekli.")
+	if hostname == "" || ip == "" {
+		c.String(http.StatusBadRequest, "Hostname ve IP zorunludur")
 		return
 	}
 
-	dbConn, err := db.Connect(config.Load())
-	if err != nil {
-		c.String(http.StatusInternalServerError, "DB bağlantı hatası: %v", err)
-		return
+	server := models.Server{
+		Hostname:  hostname,
+		IPAddress: ip,
 	}
-	defer dbConn.Close()
 
-	if err := servers.AddServer(dbConn, hostname, ipAddress); err != nil {
-		c.String(http.StatusInternalServerError, "Server ekleme hatası: %v", err)
+	if err := gormservers.AddServer(db.DB, server); err != nil {
+		c.String(http.StatusInternalServerError, "Sunucu eklenemedi: %v", err)
 		return
 	}
 

@@ -1,33 +1,25 @@
-package api_logs
+package post
 
 import (
 	"net/http"
 	"strconv"
 
-	"ProjectOlimpos/config"
 	"ProjectOlimpos/db"
-	"ProjectOlimpos/db/operations/tables/api_logs"
+	gormlogs "ProjectOlimpos/db/operations/gorm/api_logs"
 	"github.com/gin-gonic/gin"
 )
 
 func DeleteAPIRequestLogHandler(c *gin.Context) {
 	idStr := c.Param("id")
-	id, err := strconv.Atoi(idStr)
+	id64, err := strconv.ParseUint(idStr, 10, 64)
 	if err != nil {
 		c.String(http.StatusBadRequest, "Geçersiz ID")
 		return
 	}
+	id := uint(id64)
 
-	dbConn, err := db.Connect(config.Load())
-	if err != nil {
-		c.String(http.StatusInternalServerError, "Veritabanı bağlantı hatası")
-		return
-	}
-	defer dbConn.Close()
-
-	err = api_logs.DeleteAPIRequestLogByID(dbConn, id)
-	if err != nil {
-		c.String(http.StatusInternalServerError, "Kayıt silinemedi: %v", err)
+	if err := gormlogs.DeleteAPIRequestLogByID(db.DB, id); err != nil {
+		c.String(http.StatusInternalServerError, "Silinemedi: %v", err)
 		return
 	}
 
